@@ -1,14 +1,43 @@
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import {  useRoutes } from 'react-router-dom'
 import './App.css'
-import FakeApi from './components/FakeApi'
-import CommentsList from './pages/comments'
-import RecipesList from './pages/recipes'
-import RecipeData from './pages/data'
 import ReactFormHook from './pages/react-form'
-
+import Hooks from './hooks'
+import UseMemoExample from './hooks/useMemoExample'
+import UseCallBack from './hooks/useCallback/UseCallBack'
+import Home from './Home'
+import NotFound from './NotFound'
+import ReactQueryDom from './pages/ReactQuery'
+function CustomRoutes(){
+  const element = useRoutes([
+    {
+      path:'/home',
+      element:<Home />,
+      },
+        {
+          path:'/',
+          element:<Hooks />
+      },
+      {
+          path:'/hook-memo',
+          element:<UseMemoExample />
+      },
+      {
+          path:'/hook-callback',
+          element:<UseCallBack />
+      },{
+          path :'/react-form',
+          element:<ReactFormHook />
+      },{
+          path:'*',
+          element:<NotFound />
+      },{
+        path:'/react-query',
+        element:<ReactQueryDom/>
+      }
+  ]);
+  return element;
+}
 function App() {
-
-  const navigate = useNavigate();
   return (
     <>
       {/* <FakeApi /> */}
@@ -19,9 +48,7 @@ function App() {
         <Route path='/comment' element={<CommentsList/>}/>
         <Route path='/recipe/:id' element={<RecipeData/>}></Route>
       </Routes> */}
-      <Routes>
-        <Route path='/react-form' element={<ReactFormHook/>}/>
-      </Routes>
+      <CustomRoutes/>
     </>
   )
 }
